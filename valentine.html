@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Valentine Question</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+</head>
+<body>
+    <h1>Will you be my Valentine, Babe? 💖</h1>
+    <div id="valentine">
+        <button onclick="answer('yes')">Yes, of course!</button>
+        <button onclick="answer('no')">Hmm, maybe next time 😜</button>
+    </div>
+
+    <div class="navigation">
+        <a href="game.html" class="back-button">← Back</a>
+    </div>
+
+    <script>
+        function answer(response) {
+            if (response === "yes") {
+                gsap.to("#valentine", {
+                    duration: 1,
+                    scale: 1.2,
+                    onComplete: () => {
+                        alert("Yay! Love you babe, you're my everything! 💕");
+                    }
+                });
+            } else {
+                gsap.to("#valentine", {
+                    duration: 0.5,
+                    x: -10,
+                    yoyo: true,
+                    repeat: 5,
+                    ease: "power1.inOut"
+                });
+            }
+        }
+    </script>
+</body>
+</html>
