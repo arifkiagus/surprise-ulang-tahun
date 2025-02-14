@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Pilih Hadiah atau Gambling</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <h1>Pilih Hadiah atau Gambling!</h1>
+    <div class="game-container">
+        <div class="options">
+            <button class="option" onclick="choosePrize()">Pilih Hadiah Langsung</button>
+            <button class="option" onclick="gamble()">Gambling</button>
+        </div>
+        <div class="result" id="result"></div>
+        <div class="prizes" id="prizes">
+            <div class="prize" data-prize="Dinner/Lunch">🍽️ Dinner/Lunch</div>
+            <div class="prize" data-prize="Pasta/Pastry">🍝 Pasta/Pastry</div>
+            <div class="prize" data-prize="Ramen/Burger/Sushi">🍜 Ramen/Burger/Sushi</div>
+            <div class="prize" data-prize="Ice Cream/Cake/Mochi">🍦 Ice Cream/Cake/Mochi</div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="playlist.html" class="back-button">← Back</a>
+        <a href="valentine.html" class="next-button">Next →</a>
+    </div>
+
+    <script>
+        const prizes = ["Dinner/Lunch", "Pasta/Pastry", "Ramen/Burger/Sushi", "Ice Cream/Cake/Mochi"];
+        const resultElement = document.getElementById("result");
+        const prizeElements = document.querySelectorAll(".prize");
+
+        function choosePrize() {
+            resultElement.textContent = "Pilih salah satu hadiah di bawah ini!";
+            prizeElements.forEach(prize => {
+                prize.style.display = "block";
+            });
+        }
+
+        function gamble() {
+            const randomIndex = Math.floor(Math.random() * prizes.length);
+            const randomPrize = prizes[randomIndex];
+            resultElement.textContent = `Selamat! Anda mendapatkan: ${randomPrize} 🎉`;
+            prizeElements.forEach(prize => {
+                prize.style.display = "none";
+            });
+        }
+
+        prizeElements.forEach(prize => {
+            prize.addEventListener("click", () => {
+                const selectedPrize = prize.getAttribute("data-prize");
+                resultElement.textContent = `Anda memilih: ${selectedPrize} 🎁`;
+            });
+        });
+    </script>
+</body>
+</html>
