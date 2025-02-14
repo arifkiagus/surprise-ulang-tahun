@@ -3,12 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Valentine Question</title>
-    <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        #valentine {
+            text-align: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #e91e63;
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .navigation a {
+            padding: 10px 20px;
+            background: #ff4081;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .navigation a:hover {
+            background: #e91e63;
+        }
+    </style>
 </head>
 <body>
-    <h1>Will you be my Valentine, Babe? 💖</h1>
     <div id="valentine">
+        <p>Will you be my Valentine, Babe? 💖</p>
         <button onclick="answer('yes')">Yes, of course!</button>
         <button onclick="answer('no')">Hmm, maybe next time 😜</button>
     </div>
@@ -38,5 +81,4 @@
             }
         }
     </script>
-</body>
-</html>
+</body
