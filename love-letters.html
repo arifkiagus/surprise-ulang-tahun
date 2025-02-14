@@ -3,8 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <title>Love Letters</title>
-    <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+            font-family: 'Arial', sans-serif;
+        }
+        h1 {
+            font-size: 2em;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .envelope-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            padding: 20px;
+        }
+        .envelope {
+            width: 220px;
+            height: 160px;
+            position: relative;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .front, .back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.6s;
+        }
+        .front {
+            background: #ff4081;
+            color: white;
+            font-size: 1.2em;
+            padding: 10px;
+        }
+        .back {
+            background: white;
+            color: #333;
+            transform: rotateY(180deg);
+            padding: 15px;
+            flex-direction: column;
+            text-align: center;
+            overflow-y: auto;
+        }
+        .back h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .envelope.flipped .front {
+            transform: rotateY(180deg);
+        }
+        .envelope.flipped .back {
+            transform: rotateY(0deg);
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .navigation a {
+            padding: 10px 20px;
+            background: #ff4081;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .navigation a:hover {
+            background: #e91e63;
+        }
+    </style>
 </head>
 <body>
     <h1>Some words from my heart to yours, because you deserve all the love in the world.</h1>
