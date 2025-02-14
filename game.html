@@ -72,6 +72,13 @@
             background: rgba(255, 255, 255, 0.4);
             transform: scale(1.1);
         }
+        .prize.selected {
+            background: #ff4081; /* Warna untuk pilihan yang sudah dipilih */
+            cursor: default; /* Kursor default (tidak bisa diklik lagi) */
+        }
+        .prize.disabled {
+            display: none; /* Sembunyikan pilihan yang tidak dipilih */
+        }
         .navigation {
             text-align: center;
             margin-top: 20px;
@@ -156,16 +163,33 @@
             resultElement.textContent = "Pilih satu hadiah dari setiap kategori!";
             prizeElements.forEach(prize => {
                 prize.style.display = "block";
+                prize.classList.remove("selected", "disabled"); // Reset semua pilihan
             });
+            selectedPrizes = {}; // Reset pilihan sebelumnya
         }
 
         // Fungsi untuk memilih hadiah secara acak (TERSERAH)
         function gamble() {
             selectedPrizes = {}; // Reset pilihan sebelumnya
+            prizeElements.forEach(prize => {
+                prize.classList.remove("selected", "disabled"); // Reset semua pilihan
+            });
+
             prizes.forEach(category => {
                 const randomPrize = category.options[Math.floor(Math.random() * category.options.length)];
                 selectedPrizes[category.category] = randomPrize;
+
+                // Sembunyikan pilihan yang tidak dipilih di kategori tersebut
+                const categoryPrizes = document.querySelectorAll(`.prize[data-category="${category.category}"]`);
+                categoryPrizes.forEach(prize => {
+                    if (prize.getAttribute("data-prize") !== randomPrize) {
+                        prize.classList.add("disabled"); // Sembunyikan pilihan yang tidak dipilih
+                    } else {
+                        prize.classList.add("selected"); // Tandai pilihan yang dipilih
+                    }
+                });
             });
+
             displayResult();
         }
 
@@ -184,7 +208,17 @@
                 const category = prize.getAttribute("data-category");
                 const selectedPrize = prize.getAttribute("data-prize");
                 selectedPrizes[category] = selectedPrize; // Simpan pilihan
-                resultElement.textContent = `Anda memilih: ${selectedPrize} dari kategori ${category} 🎁`;
+
+                // Sembunyikan pilihan yang tidak dipilih di kategori tersebut
+                const categoryPrizes = document.querySelectorAll(`.prize[data-category="${category}"]`);
+                categoryPrizes.forEach(p => {
+                    if (p !== prize) {
+                        p.classList.add("disabled"); // Sembunyikan pilihan yang tidak dipilih
+                    } else {
+                        p.classList.add("selected"); // Tandai pilihan yang dipilih
+                    }
+                });
+
                 if (Object.keys(selectedPrizes).length === prizes.length) {
                     displayResult(); // Tampilkan hasil jika semua kategori sudah dipilih
                 }
