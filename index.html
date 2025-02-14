@@ -3,7 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Surprise Ulang Tahun</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1a1a1a;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        #landing {
+            text-align: center;
+            z-index: 1;
+        }
+        #typing-text {
+            font-size: 2.5em;
+            border-right: 2px solid white;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+        #start-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        #start-button:hover {
+            background: #e91e63;
+        }
+    </style>
+    <!-- Particles.js -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <body>
@@ -24,7 +70,7 @@
         document.getElementById("start-button").addEventListener("click", function() {
             document.getElementById("landing").style.opacity = 0;
             setTimeout(() => {
-                window.location.href = "gallery.html"; // Ganti dengan halaman utama
+                window.location.href = "gallery.html"; // Pindah ke halaman 2
             }, 1000);
         });
     </script>
