@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Pilih Hadiah atau Gambling</title>
+    <title>Pilih Hadiah atau TERSERAH</title>
     <style>
         body {
             margin: 0;
@@ -45,18 +45,32 @@
         }
         .prizes {
             display: flex;
+            flex-direction: column;
             gap: 10px;
             margin-top: 20px;
+        }
+        .prize-category {
+            margin-bottom: 10px;
+        }
+        .prize-category h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .prize-options {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
         }
         .prize {
             padding: 10px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
         .prize:hover {
             background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
         }
         .navigation {
             text-align: center;
@@ -76,18 +90,48 @@
     </style>
 </head>
 <body>
-    <h1>Pilih Hadiah atau Gambling!</h1>
+    <h1>Pilih Hadiah atau TERSERAH!</h1>
     <div class="game-container">
         <div class="options">
             <button class="option" onclick="choosePrize()">Pilih Hadiah Langsung</button>
-            <button class="option" onclick="gamble()">Gambling</button>
+            <button class="option" onclick="gamble()">TERSERAH</button>
         </div>
         <div class="result" id="result"></div>
         <div class="prizes" id="prizes">
-            <div class="prize" data-prize="Dinner/Lunch">🍽️ Dinner/Lunch</div>
-            <div class="prize" data-prize="Pasta/Pastry">🍝 Pasta/Pastry</div>
-            <div class="prize" data-prize="Ramen/Burger/Sushi">🍜 Ramen/Burger/Sushi</div>
-            <div class="prize" data-prize="Ice Cream/Cake/Mochi">🍦 Ice Cream/Cake/Mochi</div>
+            <!-- Dinner/Lunch -->
+            <div class="prize-category">
+                <h2>Dinner/Lunch</h2>
+                <div class="prize-options">
+                    <div class="prize" data-category="Dinner/Lunch" data-prize="Dinner">🍽️ Dinner</div>
+                    <div class="prize" data-category="Dinner/Lunch" data-prize="Lunch">🍱 Lunch</div>
+                </div>
+            </div>
+            <!-- Starters -->
+            <div class="prize-category">
+                <h2>Starters</h2>
+                <div class="prize-options">
+                    <div class="prize" data-category="Starters" data-prize="Pasta">🍝 Pasta</div>
+                    <div class="prize" data-category="Starters" data-prize="Pastry">🥐 Pastry</div>
+                </div>
+            </div>
+            <!-- Main Course -->
+            <div class="prize-category">
+                <h2>Main Course</h2>
+                <div class="prize-options">
+                    <div class="prize" data-category="Main Course" data-prize="Ramen">🍜 Ramen</div>
+                    <div class="prize" data-category="Main Course" data-prize="Burger">🍔 Burger</div>
+                    <div class="prize" data-category="Main Course" data-prize="Sushi">🍣 Sushi</div>
+                </div>
+            </div>
+            <!-- Dessert -->
+            <div class="prize-category">
+                <h2>Dessert</h2>
+                <div class="prize-options">
+                    <div class="prize" data-category="Dessert" data-prize="Ice Cream">🍦 Ice Cream</div>
+                    <div class="prize" data-category="Dessert" data-prize="Cake">🍰 Cake</div>
+                    <div class="prize" data-category="Dessert" data-prize="Mochi">🍡 Mochi</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -97,30 +141,53 @@
     </div>
 
     <script>
-        const prizes = ["Dinner/Lunch", "Pasta/Pastry", "Ramen/Burger/Sushi", "Ice Cream/Cake/Mochi"];
+        const prizes = [
+            { category: "Dinner/Lunch", options: ["Dinner", "Lunch"] },
+            { category: "Starters", options: ["Pasta", "Pastry"] },
+            { category: "Main Course", options: ["Ramen", "Burger", "Sushi"] },
+            { category: "Dessert", options: ["Ice Cream", "Cake", "Mochi"] }
+        ];
         const resultElement = document.getElementById("result");
         const prizeElements = document.querySelectorAll(".prize");
+        let selectedPrizes = {};
 
+        // Fungsi untuk memilih hadiah langsung
         function choosePrize() {
-            resultElement.textContent = "Pilih salah satu hadiah di bawah ini!";
+            resultElement.textContent = "Pilih satu hadiah dari setiap kategori!";
             prizeElements.forEach(prize => {
                 prize.style.display = "block";
             });
         }
 
+        // Fungsi untuk memilih hadiah secara acak (TERSERAH)
         function gamble() {
-            const randomIndex = Math.floor(Math.random() * prizes.length);
-            const randomPrize = prizes[randomIndex];
-            resultElement.textContent = `Selamat! Anda mendapatkan: ${randomPrize} 🎉`;
-            prizeElements.forEach(prize => {
-                prize.style.display = "none";
+            selectedPrizes = {}; // Reset pilihan sebelumnya
+            prizes.forEach(category => {
+                const randomPrize = category.options[Math.floor(Math.random() * category.options.length)];
+                selectedPrizes[category.category] = randomPrize;
             });
+            displayResult();
         }
 
+        // Fungsi untuk menampilkan hasil pilihan
+        function displayResult() {
+            let resultText = "Hasil pilihan Anda:\n";
+            for (const [category, prize] of Object.entries(selectedPrizes)) {
+                resultText += `${category}: ${prize}\n`;
+            }
+            resultElement.textContent = resultText;
+        }
+
+        // Event listener untuk memilih hadiah
         prizeElements.forEach(prize => {
             prize.addEventListener("click", () => {
+                const category = prize.getAttribute("data-category");
                 const selectedPrize = prize.getAttribute("data-prize");
-                resultElement.textContent = `Anda memilih: ${selectedPrize} 🎁`;
+                selectedPrizes[category] = selectedPrize; // Simpan pilihan
+                resultElement.textContent = `Anda memilih: ${selectedPrize} dari kategori ${category} 🎁`;
+                if (Object.keys(selectedPrizes).length === prizes.length) {
+                    displayResult(); // Tampilkan hasil jika semua kategori sudah dipilih
+                }
             });
         });
     </script>
