@@ -3,7 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Top 5 Playlist</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .playlist {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .track {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            width: 300px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .navigation a {
+            padding: 10px 20px;
+            background: #ff4081;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .navigation a:hover {
+            background: #e91e63;
+        }
+    </style>
 </head>
 <body>
     <h1>Here's TOP 5 OUR PLAYLIST!!!</h1>
